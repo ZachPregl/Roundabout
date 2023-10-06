@@ -1,21 +1,21 @@
-//
-//  ContentView.swift
-//  ontheway
-//
-//  Created by Zach Pregl on 6/10/2023.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+    @State private var start = ""
+    @State private var finish = ""
+    @State private var pitstop = ""
+    @State private var showFullMap = false
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        ZStack {
+            if showFullMap {
+                FullMapView(start: $start, finish: $finish, pitstop: $pitstop)
+            } else {
+                LoginView(showFullMap: $showFullMap, start: $start, finish: $finish, pitstop: $pitstop)
+            }
         }
-        .padding()
+        .transition(.move(edge: .bottom))
+        .animation(.default, value: showFullMap)
     }
 }
 
@@ -24,4 +24,3 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-		
